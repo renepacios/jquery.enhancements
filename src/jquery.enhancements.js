@@ -25,6 +25,45 @@
                 }
             }
             return $set;
+        },
+        'values': function (data) {
+            var els = $(this).find(':input').get();
+            if (typeof data != 'object') {
+                data = {};
+                $.each(els, function () {
+                    if (this.name && !this.disabled && (this.checked
+                        || /select|textarea/i.test(this.nodeName)
+                        || /text|hidden|password/i.test(this.type))) {
+                        data[this.name] = $(this).val();
+                    }
+                });
+                return data;
+            } else {
+                $.each(els, function () {
+                    if (this.name && data[this.name]) {
+                        if (this.type == 'checkbox' || this.type == 'radio') {
+                            $(this).attr("checked", (data[this.name] == $(this).val()));
+                        } else {
+                            $(this).val(data[this.name]);
+                        }
+                    }
+                });
+                return $(this);
+            }
+        },
+        'reset': function () {
+            var els = $(this).find(':input').get();
+            $.each(els, function () {
+
+                if (this.type == 'checkbox' || this.type == 'radio') {
+                    $(this).attr("checked", false);
+                } else {
+                    $(this).val('');
+                }
+            });
+            return $(this);
         }
+
+
     });
 })(jQuery);
