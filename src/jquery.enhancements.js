@@ -33,7 +33,7 @@
                 $.each(els, function () {
                     if (this.name && !this.disabled && (this.checked
                         || /select|textarea/i.test(this.nodeName)
-                        || /text|hidden|password/i.test(this.type))) {
+                        || /text|hidden|password|checkbox|radio|date|email/i.test(this.type))) {
                         data[this.name] = $(this).val();
                     }
                 });
